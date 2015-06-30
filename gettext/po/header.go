@@ -75,7 +75,6 @@ func (p *Header) parseHeader(msg *Message) {
 			p.UnknowFields[key] = val
 		}
 	}
-	p.Comment = msg.Comment
 }
 
 // String returns the po format header string.
