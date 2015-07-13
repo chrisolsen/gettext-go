@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"sort"
 )
 
 // File represents an PO File.
@@ -56,10 +55,8 @@ func (f *File) Save(name string) error {
 
 // Save returns a po file format data.
 func (f *File) Data() []byte {
-	// sort the massge as ReferenceFile/ReferenceLine field
 	var messages []Message
 	messages = append(messages, f.Messages...)
-	sort.Sort(byMessages(messages))
 
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "%s\n", f.MimeHeader.String())
