@@ -17,6 +17,7 @@ import (
 type File struct {
 	MimeHeader Header
 	Messages   []Message
+	Path       string
 }
 
 // Load loads a named po file.
@@ -25,13 +26,14 @@ func Load(name string) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	return LoadData(data)
+	return LoadData(name, data)
 }
 
 // LoadData loads po file format data.
-func LoadData(data []byte) (*File, error) {
+func LoadData(path string, data []byte) (*File, error) {
 	r := newLineReader(string(data))
 	var file File
+	file.Path = path
 	for {
 		var msg Message
 		if err := msg.readPoEntry(r); err != nil {
